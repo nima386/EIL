@@ -24,23 +24,6 @@ function formatNumber(num) {
   }).format(num);
 }
 
-function toggleModule(moduleId) {
-  const content = document.getElementById(moduleId);
-  const icon = document.getElementById(moduleId + "-icon");
-
-  if (!content || !icon) return;
-
-  const isOpen = content.classList.contains("open");
-
-  document.querySelectorAll(".module-content").forEach(el => el.classList.remove("open"));
-  document.querySelectorAll(".module-toggle-icon").forEach(el => el.textContent = "+");
-
-  if (!isOpen) {
-    content.classList.add("open");
-    icon.textContent = "−";
-  }
-}
-
 function parseGermanNumber(value) {
   if (value === null || value === undefined) return NaN;
   value = String(value).trim();
@@ -138,6 +121,23 @@ function getAttemptRecord(recordKey) {
   };
 }
 
+function toggleModule(moduleId) {
+  const content = document.getElementById(moduleId);
+  const icon = document.getElementById(moduleId + "-icon");
+
+  if (!content || !icon) return;
+
+  const isOpen = content.classList.contains("open");
+
+  document.querySelectorAll(".module-content").forEach(el => el.classList.remove("open"));
+  document.querySelectorAll(".module-toggle-icon").forEach(el => el.textContent = "+");
+
+  if (!isOpen) {
+    content.classList.add("open");
+    icon.textContent = "−";
+  }
+}
+
 function renderHomeStats() {
   const storage = getStorageData();
 
@@ -150,18 +150,11 @@ function renderHomeStats() {
   const flagsEl = document.getElementById("flags-result");
   const generalTotalEl = document.getElementById("general-total-result");
   const estimateTotalEl = document.getElementById("estimate-total-result");
+  const flagsTotalEl = document.getElementById("flags-total-result");
 
-  if (general1El) {
-    general1El.textContent = general1 ? general1.summary : "Noch nicht gespielt";
-  }
-
-  if (estimate1El) {
-    estimate1El.textContent = estimate1 ? estimate1.summary : "Noch nicht gespielt";
-  }
-
-  if (flagsEl) {
-    flagsEl.textContent = flags ? flags.summary : "Noch nicht gespielt";
-  }
+  if (general1El) general1El.textContent = general1 ? general1.summary : "Noch nicht gespielt";
+  if (estimate1El) estimate1El.textContent = estimate1 ? estimate1.summary : "Noch nicht gespielt";
+  if (flagsEl) flagsEl.textContent = flags ? flags.summary : "Noch nicht gespielt";
 
   if (generalTotalEl) {
     const generalKeys = Object.keys(storage.lastResults).filter(k => k.startsWith("general-"));
@@ -199,6 +192,27 @@ function renderHomeStats() {
       estimateTotalEl.textContent = `${formatNumber(avg)} %`;
     }
   }
+
+  if (flagsTotalEl) {
+    const flagsKeys = Object.keys(storage.lastResults).filter(k => k.startsWith("flags"));
+    if (!flagsKeys.length) {
+      flagsTotalEl.textContent = "Noch keine Daten";
+    } else {
+      let totalScore = 0;
+      let totalQuestions = 0;
+
+      flagsKeys.forEach(key => {
+        const details = storage.lastResults[key].details;
+        if (details) {
+          totalScore += details.score || 0;
+          totalQuestions += details.total || 0;
+        }
+      });
+
+      const percent = totalQuestions ? (totalScore / totalQuestions) * 100 : 0;
+      flagsTotalEl.textContent = `${totalScore}/${totalQuestions} (${formatNumber(percent)} %)`;
+    }
+  }
 }
 
 function createQuizState(config) {
@@ -228,6 +242,7 @@ function renderMiniMap(state) {
     if (index === state.currentQuestionIndex) {
       dot.classList.add("current");
     }
+
     miniMap.appendChild(dot);
   });
 }
@@ -245,7 +260,6 @@ function updateQuizHeader(state) {
 
   progressText.textContent = `Frage ${current} von ${total}`;
   progressFill.style.width = `${(current / total) * 100}%`;
-
   modeText.textContent = state.config.modeLabel;
   answeredText.textContent = `Beantwortet: ${state.answers.filter(a => a !== null && a !== "" && a !== undefined).length}`;
   questionTypeText.textContent = state.config.questionType || "Quiz";
@@ -526,14 +540,7 @@ function finishQuiz(state) {
     const answered = results.filter(r => r.answered).length;
     const percent = results.length ? (score / results.length) * 100 : 0;
 
-    payload = {
-      type: "general",
-      results,
-      score,
-      answered,
-      total: results.length,
-      percent
-    };
+    payload = { type: "general", results, score, answered, total: results.length, percent };
   }
 
   if (state.config.type === "estimate") {
@@ -578,13 +585,7 @@ function finishQuiz(state) {
       ? results.reduce((sum, r) => sum + r.accuracy, 0) / results.length
       : 0;
 
-    payload = {
-      type: "estimate",
-      results,
-      answered,
-      total: results.length,
-      percent: avgAccuracy
-    };
+    payload = { type: "estimate", results, answered, total: results.length, percent: avgAccuracy };
   }
 
   if (state.config.type === "flags") {
@@ -608,14 +609,7 @@ function finishQuiz(state) {
     const answered = results.filter(r => r.answered).length;
     const percent = results.length ? (score / results.length) * 100 : 0;
 
-    payload = {
-      type: "flags",
-      results,
-      score,
-      answered,
-      total: results.length,
-      percent
-    };
+    payload = { type: "flags", results, score, answered, total: results.length, percent };
   }
 
   const summary = state.config.type === "estimate"
@@ -716,7 +710,7 @@ function renderResults(state, payload) {
       </div>
 
       <div class="footer-actions">
-        <a class="btn-secondary" href="index.html" style="text-decoration:none;display:inline-flex;align-items:center;">Zum Start</a>
+        <a class="btn-secondary" href="index.html">Zum Start</a>
         <button class="btn-primary" onclick="location.reload()">Nochmal spielen</button>
       </div>
     </div>
