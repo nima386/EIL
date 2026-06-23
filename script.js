@@ -24,6 +24,23 @@ function formatNumber(num) {
   }).format(num);
 }
 
+function toggleModule(moduleId) {
+  const content = document.getElementById(moduleId);
+  const icon = document.getElementById(moduleId + "-icon");
+
+  if (!content || !icon) return;
+
+  const isOpen = content.classList.contains("open");
+
+  document.querySelectorAll(".module-content").forEach(el => el.classList.remove("open"));
+  document.querySelectorAll(".module-toggle-icon").forEach(el => el.textContent = "+");
+
+  if (!isOpen) {
+    content.classList.add("open");
+    icon.textContent = "−";
+  }
+}
+
 function parseGermanNumber(value) {
   if (value === null || value === undefined) return NaN;
   value = String(value).trim();

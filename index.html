@@ -18,57 +18,155 @@
       <div class="hero-badge">✨ Premium Quiz Arena</div>
       <h1><span class="gradient-text">Quiz Arena</span> Startseite</h1>
       <p>
-        Wähle dein Quiz und sieh dir deine Einzel- und Gesamtwertungen an.
+        Wähle ein Modul, klappe die Quizliste auf und starte direkt los.
       </p>
     </div>
 
     <div class="shell screen active">
       <div class="start-layout">
         <div class="premium-panel">
-          <h2>Quiz auswählen</h2>
+          <h2>Module</h2>
           <p class="muted">
-            Hier kannst du zwischen Allgemeinwissen, Schätzfragen und Flaggenquiz wählen.
+            Klappe ein Modul auf und wähle dein Tagesquiz.
           </p>
 
-          <div class="category-section">
-            <h3>Allgemeinwissen</h3>
-            <div class="quiz-link-grid">
-              <a class="quiz-link-card" href="general-1.html">
-                <div class="quiz-link-number">1</div>
-                <div class="quiz-link-title">Allgemeinwissen 1</div>
-                <div class="quiz-link-result" id="general-1-result">Noch nicht gespielt</div>
-              </a>
-            </div>
-            <div class="summary-card">
-              <div class="summary-label">Gesamtwertung Allgemeinwissen</div>
-              <div class="summary-value" id="general-total-result">Noch keine Daten</div>
-            </div>
-          </div>
+          <div class="module-accordion">
 
-          <div class="category-section">
-            <h3>Schätzfragen</h3>
-            <div class="quiz-link-grid">
-              <a class="quiz-link-card" href="estimate-1.html">
-                <div class="quiz-link-number">1</div>
-                <div class="quiz-link-title">Schätzfragen 1</div>
-                <div class="quiz-link-result" id="estimate-1-result">Noch nicht gespielt</div>
-              </a>
+            <div class="module-card">
+              <button class="module-toggle" onclick="toggleModule('general-module')">
+                <span>🧠 Allgemeinwissen</span>
+                <span class="module-toggle-icon" id="general-module-icon">+</span>
+              </button>
+              <div class="module-content" id="general-module">
+                <div class="quiz-link-grid">
+                  <a class="quiz-link-card" href="general-1.html">
+                    <div class="quiz-link-number">1</div>
+                    <div class="quiz-link-title">Quiz 1</div>
+                    <div class="quiz-link-result" id="general-1-result">Noch nicht gespielt</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">2</div>
+                    <div class="quiz-link-title">Quiz 2</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">3</div>
+                    <div class="quiz-link-title">Quiz 3</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">4</div>
+                    <div class="quiz-link-title">Quiz 4</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">5</div>
+                    <div class="quiz-link-title">Quiz 5</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">6</div>
+                    <div class="quiz-link-title">Quiz 6</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                </div>
+                <div class="summary-card">
+                  <div class="summary-label">Gesamtwertung Allgemeinwissen</div>
+                  <div class="summary-value" id="general-total-result">Noch keine Daten</div>
+                </div>
+              </div>
             </div>
-            <div class="summary-card">
-              <div class="summary-label">Gesamtwertung Schätzfragen</div>
-              <div class="summary-value" id="estimate-total-result">Noch keine Daten</div>
-            </div>
-          </div>
 
-          <div class="category-section">
-            <h3>Flaggenquiz</h3>
-            <div class="quiz-link-grid">
-              <a class="quiz-link-card" href="flags.html">
-                <div class="quiz-link-number">🏳️</div>
-                <div class="quiz-link-title">Flaggenquiz</div>
-                <div class="quiz-link-result" id="flags-result">Noch nicht gespielt</div>
-              </a>
+            <div class="module-card">
+              <button class="module-toggle" onclick="toggleModule('estimate-module')">
+                <span>📊 Schätzfragen</span>
+                <span class="module-toggle-icon" id="estimate-module-icon">+</span>
+              </button>
+              <div class="module-content" id="estimate-module">
+                <div class="quiz-link-grid">
+                  <a class="quiz-link-card" href="estimate-1.html">
+                    <div class="quiz-link-number">1</div>
+                    <div class="quiz-link-title">Quiz 1</div>
+                    <div class="quiz-link-result" id="estimate-1-result">Noch nicht gespielt</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">2</div>
+                    <div class="quiz-link-title">Quiz 2</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">3</div>
+                    <div class="quiz-link-title">Quiz 3</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">4</div>
+                    <div class="quiz-link-title">Quiz 4</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">5</div>
+                    <div class="quiz-link-title">Quiz 5</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">6</div>
+                    <div class="quiz-link-title">Quiz 6</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                </div>
+                <div class="summary-card">
+                  <div class="summary-label">Gesamtwertung Schätzfragen</div>
+                  <div class="summary-value" id="estimate-total-result">Noch keine Daten</div>
+                </div>
+              </div>
             </div>
+
+            <div class="module-card">
+              <button class="module-toggle" onclick="toggleModule('flags-module')">
+                <span>🏳️ Flaggenquiz</span>
+                <span class="module-toggle-icon" id="flags-module-icon">+</span>
+              </button>
+              <div class="module-content" id="flags-module">
+                <div class="quiz-link-grid">
+                  <a class="quiz-link-card" href="flags.html">
+                    <div class="quiz-link-number">1</div>
+                    <div class="quiz-link-title">Flaggenquiz</div>
+                    <div class="quiz-link-result" id="flags-result">Noch nicht gespielt</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">2</div>
+                    <div class="quiz-link-title">Flaggenquiz 2</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">3</div>
+                    <div class="quiz-link-title">Flaggenquiz 3</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">4</div>
+                    <div class="quiz-link-title">Flaggenquiz 4</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">5</div>
+                    <div class="quiz-link-title">Flaggenquiz 5</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                  <a class="quiz-link-card quiz-link-card-disabled" href="javascript:void(0)">
+                    <div class="quiz-link-number">6</div>
+                    <div class="quiz-link-title">Flaggenquiz 6</div>
+                    <div class="quiz-link-result">Demnächst</div>
+                  </a>
+                </div>
+                <div class="summary-card">
+                  <div class="summary-label">Gesamtwertung Flaggenquiz</div>
+                  <div class="summary-value" id="flags-total-result">Noch keine Daten</div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
