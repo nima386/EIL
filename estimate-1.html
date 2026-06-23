@@ -17,7 +17,7 @@
     <div class="hero">
       <div class="hero-badge">📊 Schätzfragen</div>
       <h1><span class="gradient-text">Quiz 1</span></h1>
-      <p>Gib ungefähre Werte ein und finde heraus, wie nah du an der richtigen Antwort liegst.</p>
+      <p>50 Schätzfragen mit Prozent-Auswertung deiner Genauigkeit.</p>
     </div>
 
     <div id="quizScreen" class="shell screen active">
@@ -41,7 +41,7 @@
       <div class="quiz-meta-row">
         <div class="badge" id="answeredText">Beantwortet: 0</div>
         <div class="badge" id="questionTypeText">Schätzfrage</div>
-        <div class="badge" id="extraModeInfo">Quiz 1</div>
+        <div class="badge" id="extraModeInfo">Quiz 1 · 50 Fragen</div>
       </div>
 
       <div class="question-card">
@@ -76,14 +76,54 @@
       { question: "Wie groß ist die Lichtgeschwindigkeit ungefähr?", unit: "km/s", answer: 299792 },
       { question: "Wie viele Tage hat ein normales Jahr?", unit: "Tage", answer: 365 },
       { question: "Wie tief ist der Marianengraben ungefähr an seiner tiefsten Stelle?", unit: "Meter", answer: 10984 },
-      { question: "Wie viele Tasten hat ein klassisches Klavier normalerweise?", unit: "Anzahl", answer: 88 }
+      { question: "Wie viele Tasten hat ein klassisches Klavier normalerweise?", unit: "Anzahl", answer: 88 },
+      { question: "Wie alt ist die Erde ungefähr?", unit: "Milliarden Jahre", answer: 4.54 },
+      { question: "Wie viele Minuten hat ein Tag?", unit: "Minuten", answer: 1440 },
+      { question: "Wie viele Meter ist ein Fußballtor breit?", unit: "Meter", answer: 7.32 },
+      { question: "Wie viele Planeten hat unser Sonnensystem?", unit: "Anzahl", answer: 8 },
+      { question: "Wie hoch ist die durchschnittliche Körpertemperatur des Menschen?", unit: "°C", answer: 37 },
+      { question: "Wie groß ist der Durchmesser der Erde ungefähr?", unit: "Kilometer", answer: 12742 },
+      { question: "Wie lang ist der Nil ungefähr?", unit: "Kilometer", answer: 6650 },
+      { question: "Wie viele Bundesländer hat Deutschland?", unit: "Anzahl", answer: 16 },
+      { question: "Wie viele Cent hat ein Euro?", unit: "Anzahl", answer: 100 },
+      { question: "Wie viele Bits hat ein Byte?", unit: "Anzahl", answer: 8 },
+      { question: "In welchem Jahr begann ungefähr der Zweite Weltkrieg?", unit: "Jahr", answer: 1939 },
+      { question: "Wie groß ist Deutschland ungefähr?", unit: "km²", answer: 357582 },
+      { question: "Wie viele Einwohner hat Deutschland ungefähr?", unit: "Millionen", answer: 84 },
+      { question: "Bei wie viel Grad Celsius friert Wasser?", unit: "°C", answer: 0 },
+      { question: "Bei wie viel Grad Celsius kocht Wasser auf Meereshöhe?", unit: "°C", answer: 100 },
+      { question: "Wie viele Zoll hat ein Fuß ungefähr?", unit: "Anzahl", answer: 12 },
+      { question: "Wie viele Tage braucht die Erde ungefähr für einen Umlauf um die Sonne?", unit: "Tage", answer: 365.25 },
+      { question: "Wie viele Zeitzonen hat die Erde ungefähr?", unit: "Anzahl", answer: 24 },
+      { question: "Wie viele Zähne hat ein Erwachsener normalerweise?", unit: "Anzahl", answer: 32 },
+      { question: "Wie viele Einwohner hat Indien ungefähr?", unit: "Milliarden", answer: 1.43 },
+      { question: "Wie alt kann eine Riesenschildkröte ungefähr werden?", unit: "Jahre", answer: 100 },
+      { question: "In welchem Jahr fiel ungefähr die Berliner Mauer?", unit: "Jahr", answer: 1989 },
+      { question: "Wie viele Sekunden hat eine Stunde?", unit: "Anzahl", answer: 3600 },
+      { question: "Wie viele Millimeter sind ein Zentimeter?", unit: "Anzahl", answer: 10 },
+      { question: "Wie viele Grad hat ein rechter Winkel?", unit: "Grad", answer: 90 },
+      { question: "Wie viele Monde hat die Erde?", unit: "Anzahl", answer: 1 },
+      { question: "Wie hoch ist die Zugspitze ungefähr?", unit: "Meter", answer: 2962 },
+      { question: "Wie viele Staaten gehören ungefähr zur EU?", unit: "Anzahl", answer: 27 },
+      { question: "Wie viele Elemente hat das Periodensystem aktuell?", unit: "Anzahl", answer: 118 },
+      { question: "Wie viele Liter Blut hat ein Erwachsener ungefähr?", unit: "Liter", answer: 5 },
+      { question: "Wie viele Spieler hat eine Fußballmannschaft auf dem Feld?", unit: "Anzahl", answer: 11 },
+      { question: "Wie viele Ecken hat ein Würfel insgesamt?", unit: "Anzahl", answer: 8 },
+      { question: "Wie lang ist der Äquator ungefähr?", unit: "Kilometer", answer: 40075 },
+      { question: "Wie viele Monate hat ein Jahr?", unit: "Anzahl", answer: 12 },
+      { question: "Wie heiß ist die Oberfläche der Sonne ungefähr?", unit: "°C", answer: 5500 },
+      { question: "Wie schnell kann ein Gepard ungefähr laufen?", unit: "km/h", answer: 110 },
+      { question: "Wie viele Tasten hat eine Standard-PC-Tastatur ungefähr?", unit: "Anzahl", answer: 105 },
+      { question: "In welchem Jahr wurde ungefähr Amerika von Kolumbus erreicht?", unit: "Jahr", answer: 1492 },
+      { question: "Wie weit ist der Mond im Durchschnitt von der Erde entfernt?", unit: "Kilometer", answer: 384400 },
+      { question: "Wie viele Liter Wasser passen ungefähr in einen Kubikmeter?", unit: "Liter", answer: 1000 }
     ];
 
     const state = createQuizState({
       type: "estimate",
       modeLabel: "Schätzfragen",
       questionType: "Schätzfrage",
-      extraInfo: "Quiz 1",
+      extraInfo: "Quiz 1 · 50 Fragen",
       helpText: "Gib einen ungefähren Zahlenwert ein. Komma oder Punkt sind erlaubt.",
       recordKey: "estimate-1",
       questions,

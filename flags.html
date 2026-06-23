@@ -16,8 +16,8 @@
   <div class="app">
     <div class="hero">
       <div class="hero-badge">🏳️ Flaggenquiz</div>
-      <h1><span class="gradient-text">Flaggenquiz</span></h1>
-      <p>Tippe das Land zur gezeigten Flagge ein. Deutsch und Englisch sind erlaubt.</p>
+      <h1><span class="gradient-text">Flaggenquiz 1</span></h1>
+      <p>50 Flaggen aus verschiedenen Weltregionen. Deutsch und Englisch werden akzeptiert.</p>
     </div>
 
     <div id="quizScreen" class="shell screen active">
@@ -41,7 +41,7 @@
       <div class="quiz-meta-row">
         <div class="badge" id="answeredText">Beantwortet: 0</div>
         <div class="badge" id="questionTypeText">Flaggeneingabe</div>
-        <div class="badge" id="extraModeInfo">Standard</div>
+        <div class="badge" id="extraModeInfo">50 Flaggen</div>
       </div>
 
       <div class="question-card">
@@ -76,7 +76,55 @@
       { countryDe: "Schweiz", countryEn: "Switzerland", code: "ch" },
       { countryDe: "Niederlande", countryEn: "Netherlands", code: "nl" },
       { countryDe: "Belgien", countryEn: "Belgium", code: "be" },
-      { countryDe: "Polen", countryEn: "Poland", code: "pl" }
+      { countryDe: "Polen", countryEn: "Poland", code: "pl" },
+
+      { countryDe: "Schweden", countryEn: "Sweden", code: "se" },
+      { countryDe: "Norwegen", countryEn: "Norway", code: "no" },
+      { countryDe: "Finnland", countryEn: "Finland", code: "fi" },
+      { countryDe: "Dänemark", countryEn: "Denmark", code: "dk" },
+      { countryDe: "Irland", countryEn: "Ireland", code: "ie" },
+      { countryDe: "Island", countryEn: "Iceland", code: "is" },
+      { countryDe: "Griechenland", countryEn: "Greece", code: "gr" },
+      { countryDe: "Tschechien", countryEn: "Czech Republic", code: "cz" },
+      { countryDe: "Ungarn", countryEn: "Hungary", code: "hu" },
+      { countryDe: "Rumänien", countryEn: "Romania", code: "ro" },
+
+      { countryDe: "China", countryEn: "China", code: "cn" },
+      { countryDe: "Japan", countryEn: "Japan", code: "jp" },
+      { countryDe: "Indien", countryEn: "India", code: "in" },
+      { countryDe: "Indonesien", countryEn: "Indonesia", code: "id" },
+      { countryDe: "Thailand", countryEn: "Thailand", code: "th" },
+      { countryDe: "Vietnam", countryEn: "Vietnam", code: "vn" },
+      { countryDe: "Pakistan", countryEn: "Pakistan", code: "pk" },
+      { countryDe: "Malaysia", countryEn: "Malaysia", code: "my" },
+      { countryDe: "Philippinen", countryEn: "Philippines", code: "ph" },
+      { countryDe: "Südkorea", countryEn: "South Korea", code: "kr" },
+
+      { countryDe: "Ägypten", countryEn: "Egypt", code: "eg" },
+      { countryDe: "Algerien", countryEn: "Algeria", code: "dz" },
+      { countryDe: "Marokko", countryEn: "Morocco", code: "ma" },
+      { countryDe: "Nigeria", countryEn: "Nigeria", code: "ng" },
+      { countryDe: "Kenia", countryEn: "Kenya", code: "ke" },
+      { countryDe: "Südafrika", countryEn: "South Africa", code: "za" },
+      { countryDe: "Ghana", countryEn: "Ghana", code: "gh" },
+      { countryDe: "Senegal", countryEn: "Senegal", code: "sn" },
+
+      { countryDe: "USA", countryEn: "United States", code: "us" },
+      { countryDe: "Kanada", countryEn: "Canada", code: "ca" },
+      { countryDe: "Mexiko", countryEn: "Mexico", code: "mx" },
+      { countryDe: "Costa Rica", countryEn: "Costa Rica", code: "cr" },
+      { countryDe: "Guatemala", countryEn: "Guatemala", code: "gt" },
+      { countryDe: "Dominikanische Republik", countryEn: "Dominican Republic", code: "do" },
+
+      { countryDe: "Brasilien", countryEn: "Brazil", code: "br" },
+      { countryDe: "Argentinien", countryEn: "Argentina", code: "ar" },
+      { countryDe: "Chile", countryEn: "Chile", code: "cl" },
+      { countryDe: "Peru", countryEn: "Peru", code: "pe" },
+      { countryDe: "Kolumbien", countryEn: "Colombia", code: "co" },
+      { countryDe: "Uruguay", countryEn: "Uruguay", code: "uy" },
+
+      { countryDe: "Australien", countryEn: "Australia", code: "au" },
+      { countryDe: "Neuseeland", countryEn: "New Zealand", code: "nz" }
     ];
 
     const questions = flagCountries.map(item => ({
@@ -96,7 +144,7 @@
       type: "flags",
       modeLabel: "Flaggenquiz",
       questionType: "Flaggeneingabe",
-      extraInfo: "Deutsch + Englisch",
+      extraInfo: "Quiz 1 · 50 Flaggen",
       helpText: "Deutsch und Englisch sind erlaubt. Kleine Tippfehler werden toleriert.",
       recordKey: "flags",
       questions,
