@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Arena</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-glow">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    <div class="glow three"></div>
+  </div>
+
+  <div class="app">
+    <div class="hero">
+      <div class="hero-badge">✨ Premium Quiz Arena</div>
+      <h1><span class="gradient-text">Quiz Arena</span> Startseite</h1>
+      <p>
+        Wähle dein Quiz und sieh dir deine Einzel- und Gesamtwertungen an.
+      </p>
+    </div>
+
+    <div class="shell screen active">
+      <div class="start-layout">
+        <div class="premium-panel">
+          <h2>Quiz auswählen</h2>
+          <p class="muted">
+            Hier kannst du zwischen Allgemeinwissen, Schätzfragen und Flaggenquiz wählen.
+          </p>
+
+          <div class="category-section">
+            <h3>Allgemeinwissen</h3>
+            <div class="quiz-link-grid">
+              <a class="quiz-link-card" href="general-1.html">
+                <div class="quiz-link-number">1</div>
+                <div class="quiz-link-title">Allgemeinwissen 1</div>
+                <div class="quiz-link-result" id="general-1-result">Noch nicht gespielt</div>
+              </a>
+            </div>
+            <div class="summary-card">
+              <div class="summary-label">Gesamtwertung Allgemeinwissen</div>
+              <div class="summary-value" id="general-total-result">Noch keine Daten</div>
+            </div>
+          </div>
+
+          <div class="category-section">
+            <h3>Schätzfragen</h3>
+            <div class="quiz-link-grid">
+              <a class="quiz-link-card" href="estimate-1.html">
+                <div class="quiz-link-number">1</div>
+                <div class="quiz-link-title">Schätzfragen 1</div>
+                <div class="quiz-link-result" id="estimate-1-result">Noch nicht gespielt</div>
+              </a>
+            </div>
+            <div class="summary-card">
+              <div class="summary-label">Gesamtwertung Schätzfragen</div>
+              <div class="summary-value" id="estimate-total-result">Noch keine Daten</div>
+            </div>
+          </div>
+
+          <div class="category-section">
+            <h3>Flaggenquiz</h3>
+            <div class="quiz-link-grid">
+              <a class="quiz-link-card" href="flags.html">
+                <div class="quiz-link-number">🏳️</div>
+                <div class="quiz-link-title">Flaggenquiz</div>
+                <div class="quiz-link-result" id="flags-result">Noch nicht gespielt</div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="record-stack">
+          <div class="record-card">
+            <div class="record-label">Hinweis</div>
+            <div class="record-note">
+              Alle Ergebnisse werden lokal im Browser gespeichert.
+            </div>
+          </div>
+
+          <div class="record-card">
+            <div class="record-label">Speicherlogik</div>
+            <div class="record-note">
+              Pro Quiz bleibt der erste Versuch gespeichert. Zusätzlich wird das letzte Ergebnis separat gezeigt.
+            </div>
+          </div>
+
+          <div class="record-card">
+            <div class="record-label">Flaggen</div>
+            <div class="record-note">
+              Die Flaggen werden lokal aus <strong>./flags/4x3</strong> geladen.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    renderHomeStats();
+  </script>
+</body>
+</html>

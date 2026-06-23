@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Allgemeinwissen 1</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-glow">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    <div class="glow three"></div>
+  </div>
+
+  <div class="app">
+    <div class="hero">
+      <div class="hero-badge">🧠 Allgemeinwissen</div>
+      <h1><span class="gradient-text">Quiz 1</span></h1>
+      <p>Beantworte die Fragen und erhalte dein Ergebnis am Ende.</p>
+    </div>
+
+    <div id="quizScreen" class="shell screen active">
+      <div class="quiz-topbar">
+        <div class="panel">
+          <div class="panel-label">Fortschritt</div>
+          <div class="panel-value" id="progressText">Frage 1 von X</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-label">Modul</div>
+          <div class="panel-value" id="modeText">Allgemeinwissen</div>
+        </div>
+
+        <div class="timer-box" id="timerBox">20s</div>
+      </div>
+
+      <div class="quiz-meta-row">
+        <div class="badge" id="answeredText">Beantwortet: 0</div>
+        <div class="badge" id="questionTypeText">Multiple Choice</div>
+        <div class="badge" id="extraModeInfo">Quiz 1</div>
+      </div>
+
+      <div class="question-card">
+        <div class="question-number" id="questionNumber"></div>
+        <div class="question-title" id="questionTitle"></div>
+        <div class="question-help" id="questionHelp"></div>
+
+        <div id="dynamicAnswerArea"></div>
+
+        <div class="quiz-actions">
+          <button class="btn-secondary" onclick="skipQuestion(state)">Überspringen</button>
+          <button class="btn-primary" onclick="nextQuestion(state)">Weiter</button>
+          <button class="btn-danger" onclick="finishQuiz(state)">Beenden</button>
+        </div>
+
+        <div class="mini-map" id="miniMap"></div>
+      </div>
+    </div>
+
+    <div id="resultScreen" style="display:none;"></div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const questions = [
+      { question: "Welcher Planet ist der Sonne am nächsten?", options: ["Venus", "Mars", "Merkur", "Erde"], answer: 2 },
+      { question: "Wie viele Kontinente gibt es üblicherweise auf der Erde?", options: ["5", "6", "7", "8"], answer: 2 },
+      { question: "Was ist die Hauptstadt von Kanada?", options: ["Toronto", "Vancouver", "Ottawa", "Montreal"], answer: 2 },
+      { question: "Welches Organ pumpt das Blut durch den Körper?", options: ["Leber", "Herz", "Lunge", "Niere"], answer: 1 },
+      { question: "In welchem Jahr begann der Erste Weltkrieg?", options: ["1914", "1918", "1939", "1905"], answer: 0 },
+      { question: "Welches Gas atmen Menschen hauptsächlich ein, um zu überleben?", options: ["Stickstoff", "Kohlenstoffdioxid", "Sauerstoff", "Helium"], answer: 2 },
+      { question: "Wie heißt das größte Tier der Welt?", options: ["Afrikanischer Elefant", "Blauwal", "Pottwal", "Giraffe"], answer: 1 },
+      { question: "Welcher Ozean ist der größte?", options: ["Atlantik", "Indischer Ozean", "Arktischer Ozean", "Pazifik"], answer: 3 },
+      { question: "Welches Land hat die Form eines Stiefels?", options: ["Spanien", "Griechenland", "Italien", "Portugal"], answer: 2 },
+      { question: "Wie viele Tage hat ein Schaltjahr?", options: ["365", "366", "364", "367"], answer: 1 }
+    ];
+
+    const state = createQuizState({
+      type: "general",
+      modeLabel: "Allgemeinwissen",
+      questionType: "Multiple Choice",
+      extraInfo: "Quiz 1",
+      helpText: "Wähle genau eine Antwort aus. Danach kannst du nur noch weitergehen.",
+      recordKey: "general-1",
+      questions,
+      timePerQuestion: 20
+    });
+
+    renderQuestion(state);
+  </script>
+</body>
+</html>

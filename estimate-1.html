@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schätzfragen 1</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-glow">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    <div class="glow three"></div>
+  </div>
+
+  <div class="app">
+    <div class="hero">
+      <div class="hero-badge">📊 Schätzfragen</div>
+      <h1><span class="gradient-text">Quiz 1</span></h1>
+      <p>Gib ungefähre Werte ein und finde heraus, wie nah du an der richtigen Antwort liegst.</p>
+    </div>
+
+    <div id="quizScreen" class="shell screen active">
+      <div class="quiz-topbar">
+        <div class="panel">
+          <div class="panel-label">Fortschritt</div>
+          <div class="panel-value" id="progressText">Frage 1 von X</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-label">Modul</div>
+          <div class="panel-value" id="modeText">Schätzfragen</div>
+        </div>
+
+        <div class="timer-box" id="timerBox">20s</div>
+      </div>
+
+      <div class="quiz-meta-row">
+        <div class="badge" id="answeredText">Beantwortet: 0</div>
+        <div class="badge" id="questionTypeText">Schätzfrage</div>
+        <div class="badge" id="extraModeInfo">Quiz 1</div>
+      </div>
+
+      <div class="question-card">
+        <div class="question-number" id="questionNumber"></div>
+        <div class="question-title" id="questionTitle"></div>
+        <div class="question-help" id="questionHelp"></div>
+
+        <div id="dynamicAnswerArea"></div>
+
+        <div class="quiz-actions">
+          <button class="btn-secondary" onclick="skipQuestion(state)">Überspringen</button>
+          <button class="btn-primary" onclick="nextQuestion(state)">Weiter</button>
+          <button class="btn-danger" onclick="finishQuiz(state)">Beenden</button>
+        </div>
+
+        <div class="mini-map" id="miniMap"></div>
+      </div>
+    </div>
+
+    <div id="resultScreen" style="display:none;"></div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const questions = [
+      { question: "Wie viele Menschen gibt es aktuell ungefähr auf der Welt?", unit: "Milliarden", answer: 8.3 },
+      { question: "Wie hoch ist der Mount Everest ungefähr?", unit: "Meter", answer: 8849 },
+      { question: "Wie viele Kontinente gibt es auf der Erde?", unit: "Anzahl", answer: 7 },
+      { question: "Wie viele Knochen hat ein erwachsener Mensch ungefähr?", unit: "Anzahl", answer: 206 },
+      { question: "Wie lange ist ein Marathon?", unit: "Kilometer", answer: 42.195 },
+      { question: "Wie viele Länder gibt es auf der Welt ungefähr?", unit: "Anzahl", answer: 195 },
+      { question: "Wie groß ist die Lichtgeschwindigkeit ungefähr?", unit: "km/s", answer: 299792 },
+      { question: "Wie viele Tage hat ein normales Jahr?", unit: "Tage", answer: 365 },
+      { question: "Wie tief ist der Marianengraben ungefähr an seiner tiefsten Stelle?", unit: "Meter", answer: 10984 },
+      { question: "Wie viele Tasten hat ein klassisches Klavier normalerweise?", unit: "Anzahl", answer: 88 }
+    ];
+
+    const state = createQuizState({
+      type: "estimate",
+      modeLabel: "Schätzfragen",
+      questionType: "Schätzfrage",
+      extraInfo: "Quiz 1",
+      helpText: "Gib einen ungefähren Zahlenwert ein. Komma oder Punkt sind erlaubt.",
+      recordKey: "estimate-1",
+      questions,
+      timePerQuestion: 20
+    });
+
+    renderQuestion(state);
+  </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flaggenquiz</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-glow">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    <div class="glow three"></div>
+  </div>
+
+  <div class="app">
+    <div class="hero">
+      <div class="hero-badge">🏳️ Flaggenquiz</div>
+      <h1><span class="gradient-text">Flaggenquiz</span></h1>
+      <p>Tippe das Land zur gezeigten Flagge ein. Deutsch und Englisch sind erlaubt.</p>
+    </div>
+
+    <div id="quizScreen" class="shell screen active">
+      <div class="quiz-topbar">
+        <div class="panel">
+          <div class="panel-label">Fortschritt</div>
+          <div class="panel-value" id="progressText">Frage 1 von X</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-label">Modul</div>
+          <div class="panel-value" id="modeText">Flaggenquiz</div>
+        </div>
+
+        <div class="timer-box" id="timerBox">20s</div>
+      </div>
+
+      <div class="quiz-meta-row">
+        <div class="badge" id="answeredText">Beantwortet: 0</div>
+        <div class="badge" id="questionTypeText">Flaggeneingabe</div>
+        <div class="badge" id="extraModeInfo">Standard</div>
+      </div>
+
+      <div class="question-card">
+        <div class="question-number" id="questionNumber"></div>
+        <div class="question-title" id="questionTitle"></div>
+        <div class="question-help" id="questionHelp"></div>
+
+        <div id="dynamicAnswerArea"></div>
+
+        <div class="quiz-actions">
+          <button class="btn-secondary" onclick="skipQuestion(state)">Überspringen</button>
+          <button class="btn-primary" onclick="nextQuestion(state)">Weiter</button>
+          <button class="btn-danger" onclick="finishQuiz(state)">Beenden</button>
+        </div>
+
+        <div class="mini-map" id="miniMap"></div>
+      </div>
+    </div>
+
+    <div id="resultScreen" style="display:none;"></div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const flagCountries = [
+      { countryDe: "Deutschland", countryEn: "Germany", code: "de" },
+      { countryDe: "Frankreich", countryEn: "France", code: "fr" },
+      { countryDe: "Italien", countryEn: "Italy", code: "it" },
+      { countryDe: "Spanien", countryEn: "Spain", code: "es" },
+      { countryDe: "Portugal", countryEn: "Portugal", code: "pt" },
+      { countryDe: "Österreich", countryEn: "Austria", code: "at" },
+      { countryDe: "Schweiz", countryEn: "Switzerland", code: "ch" },
+      { countryDe: "Niederlande", countryEn: "Netherlands", code: "nl" },
+      { countryDe: "Belgien", countryEn: "Belgium", code: "be" },
+      { countryDe: "Polen", countryEn: "Poland", code: "pl" }
+    ];
+
+    const questions = flagCountries.map(item => ({
+      question: "Welches Land gehört zu dieser Flagge?",
+      countryDe: item.countryDe,
+      countryEn: item.countryEn,
+      aliases: [item.countryDe, item.countryEn],
+      flag: `${FLAG_BASE_PATH}/${item.code}.svg`
+    }));
+
+    const flagNames = [];
+    flagCountries.forEach(item => {
+      flagNames.push(item.countryDe, item.countryEn);
+    });
+
+    const state = createQuizState({
+      type: "flags",
+      modeLabel: "Flaggenquiz",
+      questionType: "Flaggeneingabe",
+      extraInfo: "Deutsch + Englisch",
+      helpText: "Deutsch und Englisch sind erlaubt. Kleine Tippfehler werden toleriert.",
+      recordKey: "flags",
+      questions,
+      flagNames,
+      timePerQuestion: 20
+    });
+
+    renderQuestion(state);
+  </script>
+</body>
+</html>
