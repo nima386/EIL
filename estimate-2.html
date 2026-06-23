@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schätzfragen 2</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-glow">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    <div class="glow three"></div>
+  </div>
+
+  <div class="app">
+    <div class="hero">
+      <div class="hero-badge">📊 Schätzfragen</div>
+      <h1><span class="gradient-text">Quiz 2</span></h1>
+      <p>50 neue Schätzfragen ohne Wiederholung zu Quiz 1.</p>
+    </div>
+
+    <div id="quizScreen" class="shell screen active">
+      <div class="quiz-topbar">
+        <div class="panel">
+          <div class="panel-label">Fortschritt</div>
+          <div class="panel-value" id="progressText">Frage 1 von X</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-label">Modul</div>
+          <div class="panel-value" id="modeText">Schätzfragen</div>
+        </div>
+
+        <div class="timer-box" id="timerBox">20s</div>
+      </div>
+
+      <div class="quiz-meta-row">
+        <div class="badge" id="answeredText">Beantwortet: 0</div>
+        <div class="badge" id="questionTypeText">Schätzfrage</div>
+        <div class="badge" id="extraModeInfo">Quiz 2 · 50 Fragen</div>
+      </div>
+
+      <div class="question-card">
+        <div class="question-number" id="questionNumber"></div>
+        <div class="question-title" id="questionTitle"></div>
+        <div class="question-help" id="questionHelp"></div>
+
+        <div id="dynamicAnswerArea"></div>
+
+        <div class="quiz-actions">
+          <button class="btn-secondary" onclick="skipQuestion(state)">Überspringen</button>
+          <button class="btn-primary" onclick="nextQuestion(state)">Weiter</button>
+          <button class="btn-danger" onclick="finishQuiz(state)">Beenden</button>
+        </div>
+
+        <div class="mini-map" id="miniMap"></div>
+      </div>
+    </div>
+
+    <div id="resultScreen" style="display:none;"></div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const questions = [
+      { question: "Wie viele Einwohner hat Kanada ungefähr?", unit: "Millionen", answer: 41 },
+      { question: "Wie hoch ist der Eiffelturm ungefähr?", unit: "Meter", answer: 330 },
+      { question: "Wie viele Spieler stehen bei einem Basketballteam gleichzeitig auf dem Feld?", unit: "Anzahl", answer: 5 },
+      { question: "Wie lang ist die Chinesische Mauer ungefähr?", unit: "Kilometer", answer: 21196 },
+      { question: "Wie viele Tage hat ein Schaltjahr?", unit: "Tage", answer: 366 },
+      { question: "Wie viele Herzen hat ein Oktopus?", unit: "Anzahl", answer: 3 },
+      { question: "Wie hoch ist der Burj Khalifa ungefähr?", unit: "Meter", answer: 828 },
+      { question: "Wie viele Einwohner hat Japan ungefähr?", unit: "Millionen", answer: 124 },
+      { question: "Wie schwer ist ein durchschnittlicher erwachsener Elefant ungefähr?", unit: "Kilogramm", answer: 6000 },
+      { question: "Wie viele Sekunden hat ein Tag?", unit: "Anzahl", answer: 86400 },
+
+      { question: "Wie viele Buchstaben hat das deutsche Alphabet?", unit: "Anzahl", answer: 26 },
+      { question: "Wie lang ist die Donau ungefähr?", unit: "Kilometer", answer: 2850 },
+      { question: "Wie viele Rippen hat ein Mensch normalerweise insgesamt?", unit: "Anzahl", answer: 24 },
+      { question: "Wie schnell rotiert die Erde am Äquator ungefähr?", unit: "km/h", answer: 1670 },
+      { question: "Wie viele Einwohner hat Frankreich ungefähr?", unit: "Millionen", answer: 68 },
+      { question: "Wie hoch ist die Freiheitsstatue ungefähr inklusive Sockel?", unit: "Meter", answer: 93 },
+      { question: "Wie viele Farben hat ein klassischer Regenbogen?", unit: "Anzahl", answer: 7 },
+      { question: "Wie viele Tage dauert eine Schwangerschaft des Menschen ungefähr?", unit: "Tage", answer: 280 },
+      { question: "Wie groß ist die Fläche der Erde ungefähr?", unit: "Millionen km²", answer: 510 },
+      { question: "Wie viele Einwohner hat Brasilien ungefähr?", unit: "Millionen", answer: 203 },
+
+      { question: "Wie hoch ist der Kölner Dom ungefähr?", unit: "Meter", answer: 157 },
+      { question: "Wie viele Stunden hat eine Woche?", unit: "Stunden", answer: 168 },
+      { question: "Wie viele Planetenringe hat Saturn sichtbar als Hauptsystem ungefähr?", unit: "Anzahl", answer: 7 },
+      { question: "Wie lang ist ein olympisches Schwimmbecken?", unit: "Meter", answer: 50 },
+      { question: "Wie viele Einwohner hat Australien ungefähr?", unit: "Millionen", answer: 27 },
+      { question: "Wie viele Saiten hat eine klassische Gitarre normalerweise?", unit: "Anzahl", answer: 6 },
+      { question: "Wie hoch ist die Zugspitze in Fuß ungefähr?", unit: "Fuß", answer: 9718 },
+      { question: "Wie viele Ziffern hat eine Telefonnummer in Deutschland oft ungefähr ohne Vorwahltrennung?", unit: "Anzahl", answer: 11 },
+      { question: "Wie tief ist der Bodensee ungefähr maximal?", unit: "Meter", answer: 254 },
+      { question: "Wie viele Einwohner hat Spanien ungefähr?", unit: "Millionen", answer: 48 },
+
+      { question: "Wie viele Minuten dauert ein Fußballspiel regulär?", unit: "Minuten", answer: 90 },
+      { question: "Wie viele Wirbel hat die menschliche Wirbelsäule ungefähr?", unit: "Anzahl", answer: 33 },
+      { question: "Wie schnell ist Schall in Luft ungefähr?", unit: "m/s", answer: 343 },
+      { question: "Wie viele Einwohner hat Italien ungefähr?", unit: "Millionen", answer: 59 },
+      { question: "Wie groß ist ein Tennisplatz für Einzel ungefähr in der Länge?", unit: "Meter", answer: 23.77 },
+      { question: "Wie viele Stunden dauert ein halber Tag?", unit: "Stunden", answer: 12 },
+      { question: "Wie schwer ist ein Liter Wasser ungefähr?", unit: "Kilogramm", answer: 1 },
+      { question: "Wie viele Flüsse fließen in den Rhein ungefähr als größere bekannte Nebenflüsse?", unit: "Anzahl", answer: 10 },
+      { question: "Wie viele Einwohner hat die USA ungefähr?", unit: "Millionen", answer: 340 },
+      { question: "Wie hoch ist die durchschnittliche Flughöhe eines Passagierflugzeugs ungefähr?", unit: "Meter", answer: 11000 },
+
+      { question: "Wie viele Kilometer sind ein Grad Breitengrad ungefähr?", unit: "Kilometer", answer: 111 },
+      { question: "Wie viele Tage hat der Februar in einem normalen Jahr?", unit: "Tage", answer: 28 },
+      { question: "Wie viele Einwohner hat Polen ungefähr?", unit: "Millionen", answer: 38 },
+      { question: "Wie schnell fährt ein ICE maximal ungefähr?", unit: "km/h", answer: 300 },
+      { question: "Wie alt wurde die älteste bekannte Person ungefähr?", unit: "Jahre", answer: 122 },
+      { question: "Wie viele Knochen hat eine Hand ungefähr inklusive Handwurzel?", unit: "Anzahl", answer: 27 },
+      { question: "Wie viele Zehen hat ein Mensch normalerweise?", unit: "Anzahl", answer: 10 },
+      { question: "Wie lang ist der Ärmelkanal-Tunnel ungefähr?", unit: "Kilometer", answer: 50 },
+      { question: "Wie viele Einwohner hat die Türkei ungefähr?", unit: "Millionen", answer: 85 },
+      { question: "Wie groß ist die Durchschnittsgröße eines Erwachsenen weltweit ungefähr?", unit: "cm", answer: 170 }
+    ];
+
+    const state = createQuizState({
+      type: "estimate",
+      modeLabel: "Schätzfragen",
+      questionType: "Schätzfrage",
+      extraInfo: "Quiz 2 · 50 Fragen",
+      helpText: "Gib einen ungefähren Zahlenwert ein. Komma oder Punkt sind erlaubt.",
+      recordKey: "estimate-2",
+      questions,
+      timePerQuestion: 20
+    });
+
+    renderQuestion(state);
+  </script>
+</body>
+</html>

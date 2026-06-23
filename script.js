@@ -142,18 +142,24 @@ function renderHomeStats() {
   const storage = getStorageData();
 
   const general1 = storage.lastResults["general-1"];
+  const general2 = storage.lastResults["general-2"];
   const estimate1 = storage.lastResults["estimate-1"];
+  const estimate2 = storage.lastResults["estimate-2"];
   const flags = storage.lastResults["flags"];
 
   const general1El = document.getElementById("general-1-result");
+  const general2El = document.getElementById("general-2-result");
   const estimate1El = document.getElementById("estimate-1-result");
+  const estimate2El = document.getElementById("estimate-2-result");
   const flagsEl = document.getElementById("flags-result");
   const generalTotalEl = document.getElementById("general-total-result");
   const estimateTotalEl = document.getElementById("estimate-total-result");
   const flagsTotalEl = document.getElementById("flags-total-result");
 
   if (general1El) general1El.textContent = general1 ? general1.summary : "Noch nicht gespielt";
+  if (general2El) general2El.textContent = general2 ? general2.summary : "Noch nicht gespielt";
   if (estimate1El) estimate1El.textContent = estimate1 ? estimate1.summary : "Noch nicht gespielt";
+  if (estimate2El) estimate2El.textContent = estimate2 ? estimate2.summary : "Noch nicht gespielt";
   if (flagsEl) flagsEl.textContent = flags ? flags.summary : "Noch nicht gespielt";
 
   if (generalTotalEl) {

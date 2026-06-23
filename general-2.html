@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Allgemeinwissen 2</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-glow">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    <div class="glow three"></div>
+  </div>
+
+  <div class="app">
+    <div class="hero">
+      <div class="hero-badge">🧠 Allgemeinwissen</div>
+      <h1><span class="gradient-text">Quiz 2</span></h1>
+      <p>50 neue Allgemeinwissensfragen ohne Wiederholung zu Quiz 1.</p>
+    </div>
+
+    <div id="quizScreen" class="shell screen active">
+      <div class="quiz-topbar">
+        <div class="panel">
+          <div class="panel-label">Fortschritt</div>
+          <div class="panel-value" id="progressText">Frage 1 von X</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-label">Modul</div>
+          <div class="panel-value" id="modeText">Allgemeinwissen</div>
+        </div>
+
+        <div class="timer-box" id="timerBox">20s</div>
+      </div>
+
+      <div class="quiz-meta-row">
+        <div class="badge" id="answeredText">Beantwortet: 0</div>
+        <div class="badge" id="questionTypeText">Multiple Choice</div>
+        <div class="badge" id="extraModeInfo">Quiz 2 · 50 Fragen</div>
+      </div>
+
+      <div class="question-card">
+        <div class="question-number" id="questionNumber"></div>
+        <div class="question-title" id="questionTitle"></div>
+        <div class="question-help" id="questionHelp"></div>
+
+        <div id="dynamicAnswerArea"></div>
+
+        <div class="quiz-actions">
+          <button class="btn-secondary" onclick="skipQuestion(state)">Überspringen</button>
+          <button class="btn-primary" onclick="nextQuestion(state)">Weiter</button>
+          <button class="btn-danger" onclick="finishQuiz(state)">Beenden</button>
+        </div>
+
+        <div class="mini-map" id="miniMap"></div>
+      </div>
+    </div>
+
+    <div id="resultScreen" style="display:none;"></div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const questions = [
+      { question: "Welche Hauptstadt hat Argentinien?", options: ["Lima", "Buenos Aires", "Santiago", "Bogotá"], answer: 1 },
+      { question: "Wie viele Stunden hat ein Tag?", options: ["12", "24", "48", "60"], answer: 1 },
+      { question: "Welches Tier ist ein Säugetier?", options: ["Hai", "Delfin", "Forelle", "Tintenfisch"], answer: 1 },
+      { question: "Welches chemische Symbol hat Gold?", options: ["Ag", "Gd", "Au", "Go"], answer: 2 },
+      { question: "Welche Stadt ist die Hauptstadt von Italien?", options: ["Mailand", "Neapel", "Rom", "Turin"], answer: 2 },
+      { question: "Wie viele Monate haben 31 Tage?", options: ["5", "6", "7", "8"], answer: 2 },
+      { question: "Welche Einheit misst Widerstand?", options: ["Volt", "Ohm", "Watt", "Ampere"], answer: 1 },
+      { question: "Was ist das größte Organ des Menschen?", options: ["Leber", "Lunge", "Haut", "Herz"], answer: 2 },
+      { question: "Welcher Planet braucht am längsten für eine Sonnenumrundung?", options: ["Mars", "Jupiter", "Neptun", "Saturn"], answer: 2 },
+      { question: "Wie nennt man Tiere, die Pflanzen fressen?", options: ["Karnivoren", "Omnivoren", "Herbivoren", "Detritivoren"], answer: 2 },
+
+      { question: "Welche Hauptstadt hat Schweden?", options: ["Oslo", "Helsinki", "Kopenhagen", "Stockholm"], answer: 3 },
+      { question: "Welches Blutgefäß führt vom Herzen weg?", options: ["Vene", "Arterie", "Kapillare", "Ader"], answer: 1 },
+      { question: "Wie viele Milliliter sind ein Liter?", options: ["10", "100", "1000", "10000"], answer: 2 },
+      { question: "Welche Schicht der Erde ist die äußerste feste Hülle?", options: ["Kern", "Mantel", "Kruste", "Magmaschicht"], answer: 2 },
+      { question: "Welche Hauptstadt hat Norwegen?", options: ["Oslo", "Bergen", "Trondheim", "Stockholm"], answer: 0 },
+      { question: "Was ist ein Oktogon?", options: ["Dreieck", "Sechseck", "Achteck", "Zehneck"], answer: 2 },
+      { question: "Wie nennt man den Vorgang, bei dem Pflanzen Licht nutzen, um Energie zu gewinnen?", options: ["Photosynthese", "Fermentation", "Oxidation", "Atmung"], answer: 0 },
+      { question: "Welcher Ozean liegt zwischen Amerika und Europa?", options: ["Indischer Ozean", "Pazifik", "Atlantik", "Arktischer Ozean"], answer: 2 },
+      { question: "Wie viele Nullen hat eine Million?", options: ["5", "6", "7", "8"], answer: 1 },
+      { question: "Welches Land hat die Hauptstadt Wien?", options: ["Schweiz", "Österreich", "Ungarn", "Slowakei"], answer: 1 },
+
+      { question: "Welche Maßeinheit wird für Masse verwendet?", options: ["Meter", "Sekunde", "Kilogramm", "Liter"], answer: 2 },
+      { question: "Welcher Fluss fließt durch Wien, Bratislava und Budapest?", options: ["Rhein", "Elbe", "Donau", "Po"], answer: 2 },
+      { question: "Wie viele Farben hat ein klassischer Regenbogen?", options: ["5", "6", "7", "8"], answer: 2 },
+      { question: "Welche Hauptstadt hat Portugal?", options: ["Porto", "Lissabon", "Madrid", "Faro"], answer: 1 },
+      { question: "Welches Organ produziert Insulin?", options: ["Leber", "Bauchspeicheldrüse", "Magen", "Milz"], answer: 1 },
+      { question: "Welche Zahl ist durch 2 und 3 teilbar?", options: ["8", "9", "12", "15"], answer: 2 },
+      { question: "Wie nennt man Gestein aus erstarrter Lava?", options: ["Sedimentgestein", "Metamorphes Gestein", "Magmatisches Gestein", "Kalkgestein"], answer: 2 },
+      { question: "Welche Hauptstadt hat Griechenland?", options: ["Athen", "Thessaloniki", "Sofia", "Skopje"], answer: 0 },
+      { question: "Welche Himmelsrichtung liegt zwischen Norden und Osten?", options: ["Nordwest", "Südost", "Nordost", "Südwest"], answer: 2 },
+      { question: "Wie nennt man den kleinsten Baustein eines chemischen Elements?", options: ["Ion", "Molekül", "Atom", "Zelle"], answer: 2 },
+
+      { question: "Welches Meer liegt zwischen Europa und Afrika?", options: ["Schwarzes Meer", "Rotes Meer", "Mittelmeer", "Kaspisches Meer"], answer: 2 },
+      { question: "Wie viele Seiten hat ein Rechteck?", options: ["3", "4", "5", "6"], answer: 1 },
+      { question: "Welche Hauptstadt hat Finnland?", options: ["Helsinki", "Turku", "Stockholm", "Oslo"], answer: 0 },
+      { question: "Welches ist das härteste natürliche Material?", options: ["Gold", "Eisen", "Diamant", "Quarz"], answer: 2 },
+      { question: "Wie nennt man Tiere, die sowohl an Land als auch im Wasser leben können?", options: ["Reptilien", "Amphibien", "Vögel", "Insekten"], answer: 1 },
+      { question: "Welche Einheit misst Leistung?", options: ["Volt", "Ohm", "Watt", "Lux"], answer: 2 },
+      { question: "Wie viele Ecken hat ein Dreieck?", options: ["2", "3", "4", "5"], answer: 1 },
+      { question: "Welche Hauptstadt hat Belgien?", options: ["Antwerpen", "Brüssel", "Gent", "Amsterdam"], answer: 1 },
+      { question: "Welches Organ filtert Abfallstoffe aus dem Blut?", options: ["Herz", "Niere", "Milz", "Bauchspeicheldrüse"], answer: 1 },
+      { question: "Wie nennt man die Temperatur, bei der Wasser gefriert?", options: ["Siedepunkt", "Gefrierpunkt", "Schmelzpunkt", "Taupunkt"], answer: 1 },
+
+      { question: "Welches Land ist bekannt für Tulpen und Windmühlen?", options: ["Belgien", "Dänemark", "Niederlande", "Österreich"], answer: 2 },
+      { question: "Wie viele Minuten sind zwei Stunden?", options: ["100", "110", "120", "140"], answer: 2 },
+      { question: "Welche Hauptstadt hat Irland?", options: ["Belfast", "Dublin", "Cork", "Galway"], answer: 1 },
+      { question: "Wie nennt man den Vorgang, bei dem Wasser zu Dampf wird?", options: ["Kondensation", "Verdunstung", "Gefrieren", "Schmelzen"], answer: 1 },
+      { question: "Welche Form hat ein Ball geometrisch?", options: ["Würfel", "Zylinder", "Kugel", "Kegel"], answer: 2 },
+      { question: "Welcher Kontinent liegt südlich von Europa?", options: ["Asien", "Afrika", "Australien", "Südamerika"], answer: 1 },
+      { question: "Welche Hauptstadt hat die Schweiz?", options: ["Zürich", "Genf", "Bern", "Basel"], answer: 2 },
+      { question: "Wie nennt man den flüssigen Zustand eines Metalls nach dem Schmelzen?", options: ["Dampf", "Legierung", "Schmelze", "Erz"], answer: 2 },
+      { question: "Welche Einheit misst Frequenz?", options: ["Hertz", "Newton", "Pascal", "Joule"], answer: 0 },
+      { question: "Wie viele Augen hat ein typischer Mensch?", options: ["1", "2", "3", "4"], answer: 1 }
+    ];
+
+    const state = createQuizState({
+      type: "general",
+      modeLabel: "Allgemeinwissen",
+      questionType: "Multiple Choice",
+      extraInfo: "Quiz 2 · 50 Fragen",
+      helpText: "Wähle genau eine Antwort aus. Danach kannst du nur noch weitergehen.",
+      recordKey: "general-2",
+      questions,
+      timePerQuestion: 20
+    });
+
+    renderQuestion(state);
+  </script>
+</body>
+</html>
